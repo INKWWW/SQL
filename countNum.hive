@@ -1,0 +1,68 @@
+# 最终表
+SELECT COUNT(DISTINCT id) 
+FROM applyloan_grap.applyloan_apicode_group
+WHERE month='201701'
+;
+
+SELECT month, COUNT(DISTINCT id)
+FROM applyloan_grap.applyloan_apicode_group
+GROUP BY month
+ORDER BY month DESC
+;
+
+-----------------------------------------------
+
+# 原始表
+SELECT COUNT(DISTINCT id) 
+FROM applyloan_features.req_key_step2
+WHERE datestr LIKE '201803%'
+;
+
+# 分组partitions是按照20170104年月日分的，要按照月数统计人数的话，如下操作：
+SELECT substr(datestr,0,6),COUNT(DISTINCT id) 
+FROM applyloan_features.req_key_step2
+GROUP BY substr(datestr,0,6)
+;
+
+-----------------------------------------------
+
+SELECT level, COUNT(DISTINCT id)           
+FROM applyloan_grap.applyloan_apicode_group
+GROUP BY level
+ORDER BY level
+;
+
+-----------------------------------------------
+
+SELECT month, level, COUNT(DISTINCT id)           
+FROM applyloan_grap.applyloan_apicode_group
+GROUP BY month, level
+ORDER BY month ASC, level ASC
+;
+
+-----------------------------------------------
+
+SELECT month, COUNT(DISTINCT id)           
+FROM applyloan_grap.applyloan_apicode_group
+WHERE level IN ('3', '4', '5')
+GROUP BY month
+ORDER BY month ASC
+;
+
+-----------------------------------------------
+
+SELECT month, COUNT(DISTINCT id)           
+FROM applyloan_grap.applyloan_apicode_group
+WHERE level IN ('6', '7', '8')
+GROUP BY month
+ORDER BY month ASC
+;
+
+-----------------------------------------------
+
+SELECT month, COUNT(DISTINCT id)           
+FROM applyloan_grap.applyloan_apicode_group
+WHERE level IN ('9', '10')
+GROUP BY month
+ORDER BY month ASC
+;
